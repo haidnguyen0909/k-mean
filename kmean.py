@@ -99,7 +99,6 @@ def plotCluster(cluster, low, high, color):
 
 def main():
 
-
     nPts = 2000
     dim = 2
     low = 0
