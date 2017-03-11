@@ -1,6 +1,7 @@
 
 import math
 import random
+import matplotlib.pyplot as pl
 
 def distance(a, b):
     if a.n != b.n:
@@ -85,21 +86,41 @@ def kmean(points, k, minerr):
             break
     return clusters
 
+def plotCluster(cluster, low, high, color):
+    points = cluster.points
+    centroid = cluster.centroid
+    xs = [x.coords[0] for x in points]
+    ys = [x.coords[1] for x in points]
+    pl.plot(xs, ys, color)
+    pl.plot(centroid.coords[0], centroid.coords[1], "ro")
+    pl.axis([low, high, low, high])
+
 
 
 def main():
 
 
-    nPts = 20000
+    nPts = 2000
     dim = 2
     low = 0
-    high = 1000
-    nCluster = 100
+    high = 100
+    nCluster = 7
+
+    colors = ["r1", "b2", "g3", "c4", "m8", "ys", "kp", "w+"]
     minerr = 0.3
 
     points = [create_random_point(dim, low, high) for i in range(nPts)]
 
     clusters = kmean(points, nCluster, minerr)
+
+    #print clusters
+    for i in range(len(clusters)):
+        print "cluster:", i, "\t npoints:", len(clusters[i].points)
+        plotCluster(clusters[i], low, high, colors[i])
+    pl.title("K-mean")
+
+    pl.savefig("kmean.png")
+    pl.show()
 
 
 
